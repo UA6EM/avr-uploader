@@ -16,6 +16,7 @@
             <label>Board:
               <select id="boardType">
                 <option value="uno">Uno</option>
+		<option value="nano">Nano</option>
                 <option value="mega">Mega</option>
               </select>
             </label>
@@ -41,33 +42,33 @@
     </div>
     <script src="/js/avrgirl-arduino.global.js" charset="UTF-8"></script>
     <script>
-      function handleSubmit(e) {
+        function handleSubmit(e) {
         e.preventDefault();
 
-				let filecontents;
+	let filecontents;
         const file = fileInput.files[0];
         const reader = new FileReader();
         const board = boardType.value;
 
         reader.onload = function(event) {
-          filecontents = event.target.result;
+        filecontents = event.target.result;
 
-					let avrgirl = new AvrgirlArduino({
-						board: board,
-						debug: true
-					});
+	let avrgirl = new AvrgirlArduino({
+	board: board,
+	debug: true
+	});
           
-          gear.classList.add('spinning');
+        gear.classList.add('spinning');
 
-          avrgirl.flash(filecontents, (error) =>  {
-            gear.classList.remove('spinning');
-            progress.textContent = "done!";
-						if (error) {
-							console.error(error);
-						} else {
-							console.info('done correctly.');
-						}
-					});
+        avrgirl.flash(filecontents, (error) =>  {
+        gear.classList.remove('spinning');
+        progress.textContent = "done!";
+	if (error) {
+	console.error(error);
+	} else {
+	console.info('done correctly.');
+	}
+	});
 
        };
         reader.readAsArrayBuffer(file);
